@@ -1,0 +1,23 @@
+.mainForm{
+	display: flex;
+	justify-content:center;
+	align-items: start;
+	flex-direction: row;
+	gap: 8px;
+	margin-top: 28px;
+	margin-bottom: 16px;
+}
+
+.date{
+	width: 106px;
+	margin: 0;
+}
+
+.todo{
+	width: 276px;
+	margin: 0;
+}
+
+.button{
+	margin: 0;
+}

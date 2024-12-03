@@ -1,0 +1,63 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,body {
+	overflow-x:hidden;
+	width:100vw;
+	font-family: 'Montserrat';
+	font-feature-settings:
+	'clig' off,
+	'liga' off;
+	font-size: 8px;
+	font-style: normal;
+	letter-spacing: normal;
+	font-weight: 400;
+	margin: 0;
+	background-color: white;
+	color: black;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+a {
+	color: currentColor;
+	text-decoration: none;
+}
+
+ul, ol {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	list-style: none;
+}
+
+img {
+	display: block;
+	height: auto;
+	max-width:100%;
+}
+
+input,
+button,
+label {
+	display: block;
+}
+
+button {
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	padding: 0;
+}

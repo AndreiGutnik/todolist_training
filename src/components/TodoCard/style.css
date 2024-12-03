@@ -1,0 +1,20 @@
+.todoCard{
+	margin-bottom: 8px;
+	padding: 0;
+}
+
+.todoCard p{
+	text-transform: uppercase;
+}
+
+.todoCardBody {
+	padding: 12px;
+}
+
+.tag{
+	font-size: 8px;
+	font-weight: 600;
+	line-height: normal;
+	padding: 1px 4px;
+	margin: 0;
+}

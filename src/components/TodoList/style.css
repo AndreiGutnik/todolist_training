@@ -1,0 +1,33 @@
+.todoContainer{
+	width: 480px;
+	max-height: 600px;
+  padding: 16px 8px 0 8px;
+  margin: 0 auto;
+	border: 1px solid #dbdbdb;
+	border-radius: 16px;
+}
+
+.completedTasks h1{
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+.completedTasks div{
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+	gap: 4px;
+	font-size: 14px;
+}
+
+.filterBtnContainer {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	font-size: 12px;
+}
+
+.filterBtnContainer button {
+	padding: 2px 8px;
+	color: #9d9d9d;
+}
