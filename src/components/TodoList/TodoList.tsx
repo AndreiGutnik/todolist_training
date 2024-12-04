@@ -9,7 +9,7 @@ import { useModal } from '../../hooks/useModal';
 import { DeleteModal } from '../DeleteModal/DeleteModal';
 import { EditModal } from '../EditModal/EditModal';
 import { Button, Checkbox, Flex, List } from 'antd';
-import { useState } from 'react';
+import { Period, useTodoFilters } from '../../hooks/useTodoFilters';
 
 const TODO_MODALS = {
   delete: DeleteModal,
@@ -17,9 +17,11 @@ const TODO_MODALS = {
 };
 
 export const TodoList = () => {
-  const [completedTsks, setCompletedTsks] = useState<boolean>(false);
   const { todos, addTodo, updateTodo, deleteTodo } = useToDos();
   const { modals, openModal, closeModal } = useModal();
+  const { filteredTodos, filterCompleted, setFilterCompleted, setFilterPeriod } = useTodoFilters(
+    Array.from(todos)
+  );
 
   const createTodo = (values: IMainForm) => {
     const { date, todo } = values;
@@ -55,8 +57,8 @@ export const TodoList = () => {
               <h1>My todo list</h1>
               <div>
                 <Checkbox
-                  checked={completedTsks}
-                  onChange={e => setCompletedTsks(e.target.checked)}
+                  checked={filterCompleted}
+                  onChange={e => setFilterCompleted(e.target.checked)}
                 />
                 <span>Show completed tasks:</span>
               </div>
@@ -65,33 +67,49 @@ export const TodoList = () => {
           </>
         }
         footer={
-					<div className={css.filterBtnContainer}>
-						<Button color="default" variant="filled">Day</Button>
-						<Button color="default" variant="filled">Week</Button>
-						<Button color="default" variant="filled">Month</Button>
-					</div>
-				}
+          <div className={css.filterBtnContainer}>
+            <Button
+              onClick={() => setFilterPeriod(Period.DAY)}
+              color="default"
+              variant="filled"
+            >
+              Day
+            </Button>
+            <Button
+              onClick={() => setFilterPeriod(Period.WEEK)}
+              color="default"
+              variant="filled"
+            >
+              Week
+            </Button>
+            <Button
+              onClick={() => setFilterPeriod(Period.MONTH)}
+              color="default"
+              variant="filled"
+            >
+              Month
+            </Button>
+          </div>
+        }
       >
-				{Array.from(todos)
-            .filter(([_, todo]) => (completedTsks ? todo.isComplete : true))
-            .map(([id, todo]) => {
-              return (
-                <TodoController
-                  key={id}
-                  todo={todo}
-                  setTodo={todo => updateTodo(id, todo)}
-                >
-                  {props => (
-                    <TodoCard
-                      {...props}
-                      onDelete={() => openModal('delete', id)}
-                      onEdit={() => openModal('edit', id)}
-                    />
-                  )}
-                </TodoController>
-              );
-            })}
-			</List>
+        {filteredTodos.map(([id, todo]) => {
+          return (
+            <TodoController
+              key={id}
+              todo={todo}
+              setTodo={todo => updateTodo(id, todo)}
+            >
+              {props => (
+                <TodoCard
+                  {...props}
+                  onDelete={() => openModal('delete', id)}
+                  onEdit={() => openModal('edit', id)}
+                />
+              )}
+            </TodoController>
+          );
+        })}
+      </List>
 
       {Object.entries(TODO_MODALS).map(([key, ModalComponent]) => {
         const modal = modals[key];
