@@ -8,8 +8,9 @@ import { TodoController } from '../TodoController/TodoController';
 import { useModal } from '../../hooks/useModal';
 import { DeleteModal } from '../DeleteModal/DeleteModal';
 import { EditModal } from '../EditModal/EditModal';
-import { Button, Checkbox, Flex, List } from 'antd';
+import { Button, Checkbox, Flex, List, Space } from 'antd';
 import { Period, useTodoFilters } from '../../hooks/useTodoFilters';
+import { DateNavigator } from '../DateNavigator/DateNavigator';
 
 const TODO_MODALS = {
   delete: DeleteModal,
@@ -19,7 +20,7 @@ const TODO_MODALS = {
 export const TodoList = () => {
   const { todos, addTodo, updateTodo, deleteTodo } = useToDos();
   const { modals, openModal, closeModal } = useModal();
-  const { filteredTodos, filterCompleted, setFilterCompleted, setFilterPeriod } = useTodoFilters(
+  const { filteredTodos, filterCompleted, filterPeriod, setFilterCompleted, setFilterPeriod, currentDate, setCurrentDate } = useTodoFilters(
     Array.from(todos)
   );
 
@@ -42,6 +43,8 @@ export const TodoList = () => {
     updateTodo(id, updatedTodo);
     closeModal('edit');
   };
+
+	console.log('todos :=>', todos)
 
   return (
     <>
@@ -67,29 +70,34 @@ export const TodoList = () => {
           </>
         }
         footer={
-          <div className={css.filterBtnContainer}>
-            <Button
-              onClick={() => setFilterPeriod(Period.DAY)}
-              color="default"
-              variant="filled"
-            >
-              Day
-            </Button>
-            <Button
-              onClick={() => setFilterPeriod(Period.WEEK)}
-              color="default"
-              variant="filled"
-            >
-              Week
-            </Button>
-            <Button
-              onClick={() => setFilterPeriod(Period.MONTH)}
-              color="default"
-              variant="filled"
-            >
-              Month
-            </Button>
-          </div>
+          todos.size !==0 ? (
+						<Flex align='center' justify='space-between'>
+						<Space className={css.filterBtnContainer}>
+							<Button
+								onClick={() => setFilterPeriod(Period.DAY)}
+								color="default"
+								variant="filled"
+							>
+								Day
+							</Button>
+							<Button
+								onClick={() => setFilterPeriod(Period.WEEK)}
+								color="default"
+								variant="filled"
+							>
+								Week
+							</Button>
+							<Button
+								onClick={() => setFilterPeriod(Period.MONTH)}
+								color="default"
+								variant="filled"
+							>
+								Month
+							</Button>
+          	</Space>
+						{filterPeriod === 'day' && <DateNavigator currentDate={currentDate} setCurrentDate={setCurrentDate}/>}
+					</Flex>
+					) : null
         }
       >
         {filteredTodos.map(([id, todo]) => {

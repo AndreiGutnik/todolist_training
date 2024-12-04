@@ -1,4 +1,4 @@
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { useMemo, useState } from "react";
 import { IToDo } from "../types";
 
@@ -11,6 +11,7 @@ export enum Period {
 export const useTodoFilters = (todos: [string, IToDo][]) => {
 	const [filterCompleted, setFilterCompleted] = useState<boolean>(false)
 	const [filterPeriod, setFilterPeriod] = useState<Period>(Period.DAY);
+	const [currentDate, setCurrentDate] = useState<Dayjs>(dayjs());
 
 	const filterByComplete = ([_, todo]: [string, IToDo]) => {
 		return filterCompleted ? todo.isComplete : true
@@ -18,8 +19,7 @@ export const useTodoFilters = (todos: [string, IToDo][]) => {
 
 	const filterByPeriod = ([_, todo]: [string, IToDo]) => {
 		const todoDate = dayjs(todo.date)
-    const now = dayjs()
-		return todoDate.isSame(now, filterPeriod)
+		return todoDate.isSame(currentDate, filterPeriod)
 	}
 
 	const filteredTodos = useMemo(() => {
@@ -34,6 +34,9 @@ export const useTodoFilters = (todos: [string, IToDo][]) => {
 		filteredTodos,
 		filterCompleted,
 		setFilterCompleted,
+		filterPeriod,
 		setFilterPeriod,
+		currentDate,
+		setCurrentDate
 	}
 }
