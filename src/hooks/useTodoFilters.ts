@@ -23,8 +23,12 @@ export const useTodoFilters = (todos: [string, IToDo][]) => {
 	}
 
 	const filteredTodos = useMemo(() => {
-    return todos.filter(filterByComplete).filter(filterByPeriod);
-  }, [todos, filterCompleted, filterPeriod]);
+    return todos
+		.filter(filterByComplete).filter(filterByPeriod)
+		.sort(([_, todoA], [__, todoB]) => {
+      return dayjs(todoA.date).valueOf() - dayjs(todoB.date).valueOf()
+		})
+  }, [todos, filterCompleted, filterPeriod])
 
 	return {
 		filteredTodos,
