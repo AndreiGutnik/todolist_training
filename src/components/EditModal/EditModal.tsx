@@ -2,6 +2,7 @@ import { DatePicker, Form, Input, Modal } from "antd"
 import { IModal, IToDo } from "../../types"
 import dayjs from "dayjs"
 import * as css from './style.css'
+import { useToDos } from "../../hooks/useToDos"
 
 interface EditModalProps extends IModal {
 	onEdit: (updatedTodo: IToDo)=>void
@@ -56,7 +57,7 @@ export const EditModal = (props: EditModalProps) => {
 				rules={[{ required: true, message: "Please enter a TODO!" }]}
 				labelCol={{ span: 24 }}
 			>
-				<Input placeholder="Creat a second masterpiece" />
+				<Input placeholder="Create a second masterpiece" />
 			</Form.Item>
 		</Form>
 		</Modal>

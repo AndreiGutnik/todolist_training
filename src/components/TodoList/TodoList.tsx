@@ -44,8 +44,6 @@ export const TodoList = () => {
 		closeModal('edit');
 	};
 
-	console.log('todos :=>', todos)
-
 	return (
 		<>
 			<List
