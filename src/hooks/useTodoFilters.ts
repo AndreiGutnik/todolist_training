@@ -3,14 +3,14 @@ import { useMemo, useState } from "react";
 import { IToDo } from "../types";
 
 export enum Period {
-	DAY='day',
+	DATE='date',
 	WEEK='week',
 	MONTH= 'month'
 }
 
 export const useTodoFilters = (todos: [string, IToDo][]) => {
 	const [filterCompleted, setFilterCompleted] = useState<boolean>(false)
-	const [filterPeriod, setFilterPeriod] = useState<Period>(Period.DAY);
+	const [filterPeriod, setFilterPeriod] = useState<Period>(Period.DATE);
 	const [currentDate, setCurrentDate] = useState<Dayjs>(dayjs());
 
 	const filterByComplete = ([_, todo]: [string, IToDo]) => {
