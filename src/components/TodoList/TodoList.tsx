@@ -100,6 +100,7 @@ export const TodoList = () => {
 					) : null
 				}
 			>
+				<div className={css.listContent}>
 				{filteredTodos.map(([id, todo]) => {
 					return (
 						<TodoController
@@ -117,6 +118,7 @@ export const TodoList = () => {
 						</TodoController>
 					);
 				})}
+				</div>
 			</List>
 
 			{Object.entries(TODO_MODALS).map(([key, ModalComponent]) => {

@@ -6,16 +6,16 @@ import { DeleteModal } from '../DeleteModal/DeleteModal';
 const { Meta } = Card;
 
 interface TodoCardProps {
-  todo: IToDo;
-  onComplete: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
+	todo: IToDo;
+	onComplete: () => void;
+	onEdit: () => void;
+	onDelete: () => void;
 }
 
 export const TodoCard = (props: TodoCardProps) => {
-  const { todo, onComplete, onEdit, onDelete } = props;
+	const { todo, onComplete, onEdit, onDelete } = props;
 
-  return (
+	return (
 		<Card
 			className={css.todoCard}
 			styles={{
@@ -50,5 +50,5 @@ export const TodoCard = (props: TodoCardProps) => {
 				<Meta description={<div>{todo.date.format('DD.MM.YYYY')}</div>} />
 			</Flex>
 		</Card>
-  );
+	);
 };

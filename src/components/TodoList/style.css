@@ -1,10 +1,14 @@
 .todoContainer{
 	width: 480px;
-	max-height: 600px;
   padding: 16px 8px 0 8px;
   margin: 0 auto;
 	border: 1px solid #dbdbdb;
 	border-radius: 16px;
+}
+
+.listContent {
+	max-height: 500px;
+	overflow-y: auto;
 }
 
 .completedTasks h1{
