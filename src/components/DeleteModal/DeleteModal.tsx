@@ -1,22 +1,24 @@
-import { Modal } from 'antd'
-import { IModal } from '../../types'
+import { Modal } from 'antd';
+import { IModal } from '../../types';
+import { isModalOpen } from '../../utils/isModalOpen';
 
-interface DeleteModalProps extends IModal {
-	onDelete: ()=>void
-	onCancel: ()=>void
+interface DeleteModalProps {
+  modal: IModal;
+  onDelete: () => void;
+  onCancel: () => void;
 }
 
 export const DeleteModal = (props: DeleteModalProps) => {
-	const {isModalOpen, onDelete, onCancel} = props
+  const { modal, onDelete, onCancel } = props;
 
-  return isModalOpen ? (
+  return (
     <Modal
       title="WARNING"
-      open={isModalOpen}
+      open={isModalOpen(modal)}
       onOk={onDelete}
       onCancel={onCancel}
     >
       <p>Do you really want to delete this task?</p>
     </Modal>
-  ) : null
-}
+  );
+};

@@ -1,3 +1,3 @@
-import {v4} from 'uuid';
+import { v4 } from 'uuid';
 
-export const generateKey = ()=>v4()
+export const generateKey = () => v4();

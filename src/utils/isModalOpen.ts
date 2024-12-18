@@ -1,3 +1,3 @@
-import { IModal } from "../types";
+import { IModal } from '../types';
 
-export const isModalOpen = (modal:IModal) => modal.currentId !== null
+export const isModalOpen = (modal: IModal) => modal.currentId !== '';

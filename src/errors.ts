@@ -1,3 +1,5 @@
-export const TodoNotFound=(id: string) => {
-	throw new Error(`ToDo with ID ${id} not found`)
+export class TodoNotFound extends Error {
+	constructor(id: string){
+		super(`ToDo with ID ${id} not found`)
+	}
 }
