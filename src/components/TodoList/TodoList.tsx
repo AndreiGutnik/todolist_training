@@ -38,6 +38,28 @@ export const TodoList = () => {
     updateTodo(id, newtodo);
   };
 
+  const renderHeader = () => {
+    return (
+      <>
+        <Flex
+          className={css.completedTasks}
+          align="center"
+          justify="space-between"
+        >
+          <h1>My todo list</h1>
+          <div>
+            <Checkbox
+              checked={filterCompleted}
+              onChange={e => setFilterCompleted(e.target.checked)}
+            />
+            <span>Show completed tasks:</span>
+          </div>
+        </Flex>
+        <MainForm onSubmit={createTodo} />
+      </>
+    );
+  };
+
   const renderFooter = () => {
     if (todos.size < 1) return null;
     return (
@@ -81,25 +103,7 @@ export const TodoList = () => {
     <>
       <List
         className={css.todoContainer}
-        header={
-          <>
-            <Flex
-              className={css.completedTasks}
-              align="center"
-              justify="space-between"
-            >
-              <h1>My todo list</h1>
-              <div>
-                <Checkbox
-                  checked={filterCompleted}
-                  onChange={e => setFilterCompleted(e.target.checked)}
-                />
-                <span>Show completed tasks:</span>
-              </div>
-            </Flex>
-            <MainForm onSubmit={createTodo} />
-          </>
-        }
+        header={renderHeader()}
         footer={renderFooter()}
       >
         <div className={css.listContent}>
