@@ -4,15 +4,17 @@ import '../../global.css';
 import { TodoCard } from '../TodoCard/TodoCard';
 import * as css from './style.css';
 import { MainForm } from '../MainForm/MainForm';
-import { useModal } from '../../hooks/useModal';
+import { useModals } from '../../hooks/useModals';
 import { Button, Checkbox, Flex, List, Space } from 'antd';
 import { Period, useTodoFilters } from '../../hooks/useTodoFilters';
 import { DateNavigator } from '../DateNavigator/DateNavigator';
-import { ModalComponent, TodoModalType } from '../ModalComponent/ModalComponent';
+
+import { DeleteModal } from '../DeleteModal/DeleteModal';
+import { EditModal } from '../EditModal/EditModal';
 
 export const TodoList = () => {
   const { todos, addTodo, updateTodo, deleteTodo } = useToDos();
-  const { modals, openModal, closeModal } = useModal();
+  const { modals, openModal } = useModals();
   const {
     filteredTodos,
     filterCompleted,
@@ -36,6 +38,31 @@ export const TodoList = () => {
   const handleComplete = (id: string, todo: IToDo) => {
     const newtodo = { ...todo, isComplete: !todo.isComplete };
     updateTodo(id, newtodo);
+  };
+
+  const showDeleteModal = (todoId: string) => {
+    openModal(hideModal => (
+      <DeleteModal
+        onDelete={() => {
+          hideModal();
+          deleteTodo(todoId);
+        }}
+        onCancel={() => hideModal()}
+      />
+    ));
+  };
+
+  const showEditModal = (todoId: string, todo: IToDo) => {
+    openModal(hideModal => (
+      <EditModal
+        todo={todo}
+        onEdit={updatedTodo => {
+          hideModal();
+          updateTodo(todoId, updatedTodo);
+        }}
+        onCancel={() => hideModal()}
+      />
+    ));
   };
 
   const renderHeader = () => {
@@ -113,20 +140,14 @@ export const TodoList = () => {
                 key={id}
                 todo={todo}
                 onToggleComplete={() => handleComplete(id, todo)}
-                onDelete={() => openModal(TodoModalType.DELETE, id)}
-                onEdit={() => openModal(TodoModalType.EDIT, id)}
+                onDelete={() => showDeleteModal(id)}
+                onEdit={() => showEditModal(id, todo)}
               />
             );
           })}
         </div>
       </List>
-
-      <ModalComponent
-        modals={modals}
-        closeModal={closeModal}
-        updateTodo={updateTodo}
-        deleteTodo={deleteTodo}
-      />
+      <div>{modals}</div>
     </>
   );
 };

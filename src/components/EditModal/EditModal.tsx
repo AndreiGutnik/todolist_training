@@ -1,23 +1,20 @@
 import { DatePicker, Form, Input, Modal } from 'antd';
-import { IModal, IToDo } from '../../types';
-import dayjs from 'dayjs';
+import { IToDo } from '../../types';
 import * as css from './style.css';
-import { isModalOpen } from '../../utils/isModalOpen';
 
 interface EditModalProps {
-  modal: IModal;
+  todo: IToDo;
   onEdit: (updatedTodo: IToDo) => void;
   onCancel: () => void;
 }
 
 export const EditModal = (props: EditModalProps) => {
-  const { modal, onEdit, onCancel } = props;
+  const { todo, onEdit, onCancel } = props;
   const [form] = Form.useForm();
 
   const handleSubmit = (values: any) => {
     onEdit({
-      date: values.date,
-      content: values.todo,
+      ...values,
       isComplete: false,
     });
     form.resetFields();
@@ -26,7 +23,7 @@ export const EditModal = (props: EditModalProps) => {
   return (
     <Modal
       title={<div style={{ marginBottom: '16px' }}>TASK EDITING</div>}
-      open={isModalOpen(modal)}
+      open={true}
       onOk={() => form.submit()}
       onCancel={onCancel}
     >
@@ -34,9 +31,7 @@ export const EditModal = (props: EditModalProps) => {
         className={css.formSection}
         form={form}
         onFinish={handleSubmit}
-        initialValues={{
-          date: dayjs(),
-        }}
+        initialValues={todo}
       >
         <Form.Item
           className={css.formItem}
@@ -53,7 +48,7 @@ export const EditModal = (props: EditModalProps) => {
         </Form.Item>
 
         <Form.Item
-          name="todo"
+          name="content"
           label="Description"
           rules={[{ required: true, message: 'Please enter a TODO!' }]}
           labelCol={{ span: 24 }}

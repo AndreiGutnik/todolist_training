@@ -10,7 +10,3 @@ export interface IMainForm {
   date: Dayjs;
   todo: string;
 }
-
-export interface IModal {
-  currentId: string;
-}
